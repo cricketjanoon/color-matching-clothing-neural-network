@@ -38,17 +38,22 @@ fprintf('Loading and Visualizing Data ...\n')
 
 % load('cvbn.mat');
 load('mapsandindexes.mat'); % this file contains X(indexed images), Y(target labels) and A1(maps of all indexed images).
+
+%shahbaz 
+load('shahbaz_map.mat');
+load('shahbaz_ind.mat');
+
 m = size(X, 1);
 % n=size(A1);
 
 % Randomly select 100 data points from X to display
-sel = randperm(size(X, 1));
+sel = randperm(size(X_CJ, 1));
 sel = sel(1:100);
 
 
-displayData(X(sel, :)); % Here selected values(or images) from X are sent to displayData(). 
+displayData(X_CJ(sel, :), map_CJ(:,:,sel)); % Here selected values(or images) from X are sent to displayData(). 
 % displayData(A1(:,:,sel)) % displays map
-A1(:,:,sel) % selects corresponding maps, the maps of that 100 seleced images which we want to display.
+%A1(:,:,sel) % selects corresponding maps, the maps of that 100 seleced images which we want to display.
 % colormap() % this function joins indexed img 'X' with 'map'.
 
 % We want to map indexed images to their correspoonding
@@ -247,7 +252,7 @@ pause;
 
 fprintf('\nVisualizing Neural Network... \n')
 
-displayData(Theta1(:, 2:end));
+displayDataGray(Theta1(:, 2:end));
 
 fprintf('\nProgram paused. Press enter to continue.\n');
 pause;
@@ -285,7 +290,7 @@ rp = randperm(m);
 for i = 1:m
     % Display 
     fprintf('\nDisplaying Example Image\n');
-    displayData(X(rp(i), :));
+    displayData(X_CJ(rp(i), :), map_CJ(:,:,rp(i)));
 
     pred = predict(Theta1, Theta2, X(rp(i),:));
     fprintf('\nNeural Network Prediction: %d (digit %d)\n', pred, mod(pred, 20));
