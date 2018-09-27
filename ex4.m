@@ -285,14 +285,22 @@ pause;
 %  through the examples one at the a time to see what it is predicting.
 
 %  Randomly permute examples
-rp = randperm(m);
 
-for i = 1:m
+
+load('test_image_data.mat');
+test_data_size = size(ind_test, 1);
+fprintf("\nSize of Test data: %d\n", test_data_size); 
+rp = randperm(test_data_size);
+
+for i = 1:test_data_size;
     % Display 
     fprintf('\nDisplaying Example Image\n');
-    displayDataSingle(X_CJ(rp(i), :), map_CJ(:,:,rp(i)));
+    
+    
+    
+    displayDataSingle(ind_test(rp(i), :), map_test(:,:,rp(i)));
 
-    pred = predict(Theta1, Theta2, X(rp(i),:));
+    pred = predict(Theta1, Theta2, double(ind_test(rp(i),:)));
     fprintf('\nNeural Network Prediction: %d (digit %d)\n', pred, mod(pred, 20));
     
     % Pause
